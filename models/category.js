@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {});
   category.associate = function(models) {
-    // associations can be defined here
+   // category.belongsToMany(article, { as: 'Users', through: { model: UserRole, unique: false }, foreignKey: 'role_id' });
   };
   return category;
 };

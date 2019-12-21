@@ -1,6 +1,14 @@
-//Init Group Route
-//import controllers todos.js
+
+//controllers
 const CategoryControllers = require('./controllers/category')
+const ArticlesControllers = require('./controllers/article')
+const AuthController = require('./controllers/login')
+const RegisterController = require('./controllers/register')
+
+
+//middlewares
+const { authenticated } = require('./middleware')
+
 require("express-group-routes")
 //instantiate express module
 const express = require('express')
@@ -24,43 +32,37 @@ app.use(function(req,res,next){
 });
 
 
-
 app.group("/api/v1", (router) => {
 
-//Get list route simply send arr of obj todos on your user screen
-//Ngambil Array Diatas
+//category
+router.get('/categories', CategoryControllers.showAll)
+router.get('/category/:id', CategoryControllers.showOne)
 
-//router.get('/endpoint', controller.naming_func)
+//router.post('/category', CategoryControllers.store)
+//router.patch('/category/:id', CategoryControllers.update)
+//router.delete('/category/:id', CategoryControllers.delete)
 
-router.get('/categories', CategoryControllers.index)
+//article
+router.get('/article', ArticlesControllers.index)
+router.get('/article/:id', ArticlesControllers.showPerCatagory)
+router.get('/articles', ArticlesControllers.showAll)
+router.get('/articles/popular', ArticlesControllers.showPopular)
+router.get('/article/show/:id', ArticlesControllers.showArticle)
 
-//GET detail route: send the todo obj, by received id request params
-//Ngambil Data Array nya lebih spesifik atau 1 data.
-router.get('/category/:id', CategoryControllers.show)
+//register
+//router.post('/register', RegisterController.register)
 
-
-//POST route: receive json body request, from user input, then push to todos array
-//Masukan Data Lola
-router.post('/category', CategoryControllers.store)
-
-
-//PATCH route: receive json body request, from user input, then push to todos array
-//by object id
-//Edit Data
-router.patch('/category/:id', CategoryControllers.update)
-
-
-//DELETE route: delete the todo obj, by received id request params
-router.delete('/category/:id', CategoryControllers.delete)
-
+//login
+router.post('/login', AuthController.login)
 })
 
 
-//create the homepage route
+
+
 app.get('/', (req, res) => {
-    //res means, response, and it send string "Hello Express!" to the API
+
     res.send('Jambu Biji')
 })    
 
-//when this nodejs app executed, it will listen to defined port
+
 app.listen(port, () => console.log(`Listening on port ${port}!`))

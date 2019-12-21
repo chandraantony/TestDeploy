@@ -2,18 +2,19 @@ const models = require('../models')
 const Category = models.category
 
 
-exports.index = (req, res) => {
+exports.showAll = (req, res) => {
     Category.findAll({}).then(categories=>res.send(categories))
 }
 
 
-exports.show = (req, res) => {
+exports.showOne = (req, res) => {
     Category.findOne({
         where :{
             id :req.params.id
         }
     }).then(category=> res.send(category))
 }
+
 
 exports.store = (req, res) => {
     Category.create(req.body).then(category=> {
