@@ -50,7 +50,7 @@ router.get('/articles/popular', ArticlesControllers.showPopular)
 router.get('/article/show/:id', ArticlesControllers.showArticle)
 
 //register
-//router.post('/register', RegisterController.register)
+router.post('/register', RegisterController.register)
 
 //login
 router.post('/login', AuthController.login)
